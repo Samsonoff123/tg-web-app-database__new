@@ -45,7 +45,7 @@ cron.schedule('0 0 0 * * *', async () => {
         const workbook = XLSX.readFile("./spreadsheets/tSTORe.xlsx")
         const worksheet = workbook.Sheets[workbook.SheetNames[0]]
 
-        const res = await axios.get('https://tg-backend-database.herokuapp.com/api/device/')
+        const res = await axios.get('https://tg-web-app-database-new-z3e1-9tty5xsk0-samsonoff123.vercel.app/api/device/')
         const devices = res.data.rows
         for(let i = 0; i < devices.length; i++) {
             try {
@@ -60,7 +60,7 @@ cron.schedule('0 0 0 * * *', async () => {
                 if (price && XLSXurl &&  XLSXurl?.v !== "-") {
                     if (url === XLSXurl.v) {
 
-                        await axios.put(`https://tg-backend-database.herokuapp.com/api/device/url`, {
+                        await axios.put(`https://tg-web-app-database-new-z3e1-9tty5xsk0-samsonoff123.vercel.app/api/device/url`, {
                             price: price.v,
                             url
                         })
