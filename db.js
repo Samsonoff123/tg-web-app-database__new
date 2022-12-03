@@ -1,4 +1,5 @@
 const {Sequelize} = require('sequelize')
+import pg from 'pg';
 
 module.exports = new Sequelize(
     process.env.DB_NAME,
@@ -11,6 +12,7 @@ module.exports = new Sequelize(
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
         dialect: 'postgres',
+        dialectModule: pg,
         dialectOptions: {
           ssl: {
             require: true, // This will help you. But you will see nwe error
