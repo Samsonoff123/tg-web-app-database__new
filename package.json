@@ -19,6 +19,7 @@
     "jsonwebtoken": "^8.5.1",
     "node-cron": "^3.0.2",
     "node-html-parser": "^6.1.4",
+    "node-telegram-bot-api": "^0.60.0",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.25.5",
