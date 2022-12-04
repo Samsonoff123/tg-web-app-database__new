@@ -94,20 +94,25 @@ const tgStart = () => {
     
      
     const bot = new TelegramBot(token, {polling: true});
-    
+
     bot.on('message', async(msg) => { 
       const chatId = msg.chat.id;
       const text = msg.text;
       const button = 'Магазин'
       const admin = 'admin' 
-    
+  
     
       if(text === '/start') {
-        await bot.sendMessage(chatId, 'Добро пожаловать, ' + msg.chat.first_name + ' ' + msg.chat.last_name + '.\n' + 'Нажмите на кнопку "' + button + '" что-бы продолжить', {
+        await bot.sendMessage(chatId, 'Нажмите на кнопку "' + button + '" чтобы продолжить', {
             reply_markup: {
               resize_keyboard: true,
                 keyboard: [
-                    [{text: button, web_app: {url: webAppUrl + '/1'}}]   
+                    [
+                      {
+                        text: button,
+                        web_app: {url: webAppUrl + '/1'},
+                      }
+                  ]   
                 ]
             }
         })
@@ -115,7 +120,7 @@ const tgStart = () => {
     
     
       if(msg.chat.username === adminName && text === '/admin') {
-        await bot.sendMessage(chatId, 'Добро пожаловать, ' + msg.chat.first_name + ' ' + msg.chat.last_name + '.\n' + 'Нажмите на кнопку "' + admin + '" что-бы переидти на админку', {
+        await bot.sendMessage(chatId, 'Добро пожаловать, нажмите на кнопку "' + admin + '" чтобы переидти на админку', {
           reply_markup: {
             resize_keyboard: true,
             keyboard: [
@@ -137,7 +142,9 @@ const tgStart = () => {
       if(msg?.web_app_data?.data) {  
         try {
           const data = JSON.parse(msg?.web_app_data?.data)
-          await bot.sendMessage(adminChatId, `ФИО: ${msg.chat.first_name} "${msg.chat.username}" ${msg.chat.last_name} \n Наименование: ${data?.name}; \n Цена: ${data?.price}; \n Память: ${data?.memory}; \n Способ оплаты и доставки: ${data?.delivery} \n`)
+          await bot.sendMessage(adminChatId, `ФИО: ${msg.chat.first_name} "@${msg.chat.username}" ${msg.chat.last_name} \n Наименование: ${data?.name}; \n Цена: ${data?.price}; \n Память: ${data?.memory}; \n Способ оплаты и доставки: ${data?.delivery} \n`)
+
+          await bot.sendMessage(chatId, `Ваш заказ принят. \nСкоро с вами свяжется <b><a href="https://t.me/${adminName}">менеджер</a></b> для подтверждения заказа`, { parse_mode: 'HTML' })
         } catch (e) {
           console.log(e);
         }

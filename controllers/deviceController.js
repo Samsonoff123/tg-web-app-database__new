@@ -137,7 +137,7 @@ class DeviceController {
 
                 const name = root.querySelector('.site-content-inner h1').innerText
                 const price = +root.querySelector('.price-current strong').innerText
-                const tag = root.querySelectorAll('.site-path a')[2].innerText
+                const tag = root.querySelectorAll('.site-path a')[2].innerText || "undefined"
                 const brandId = 1
                 const typeId = 2
                 const img = 'https://sotohit.ru/' + root.querySelector('.product-item-main-pics img').rawAttrs.split(' ')[0].split('"')[1]
