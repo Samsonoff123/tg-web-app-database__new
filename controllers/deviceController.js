@@ -52,6 +52,52 @@ class DeviceController {
         return res.json(devices)
     }
 
+    async getByPriceLowToHight(req, res) {
+        let {limit, page } = req.query
+        let { id } = req.params
+        page = page || 1
+        limit = limit || 10
+        let offset = page * limit - limit
+        const devices = await Device.findAndCountAll({  
+            where: {
+              typeId: id  
+            }, 
+            limit, offset,
+            attributes: {
+                exclude: ['html', 'variations', 'sliderImg']
+            }, 
+            order: [
+                ['price', 'ASC'],
+            ],
+        })
+
+
+        return res.json(devices)
+    }
+
+    async getByPriceHightToLow(req, res) {
+        let {limit, page } = req.query
+        let { id } = req.params
+        page = page || 1
+        limit = limit || 10
+        let offset = page * limit - limit
+        const devices = await Device.findAndCountAll({  
+            where: {
+              typeId: id  
+            }, 
+            limit, offset,
+            attributes: {
+                exclude: ['html', 'variations', 'sliderImg']
+            }, 
+            order: [
+                ['price', 'DESC'],
+            ],
+        })
+
+
+        return res.json(devices)
+    }
+
     async getAllByType(req, res) { 
         let {limit, page } = req.query
         let { id } = req.params
