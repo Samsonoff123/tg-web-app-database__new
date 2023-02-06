@@ -134,7 +134,7 @@ class DeviceController {
                         [Op.match]: Sequelize.fn('to_tsquery', device.tag.replaceAll(' ', ' & '))
                     }
                 },
-                attributes: {exclude: ['html', 'variations', 'sliderImg']}
+                attributes: {exclude: ['html', 'sliderImg']}
             }
         )
 
